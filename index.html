@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width , initial-scale=1.0">
+	<title>TEST TO SPEECH</title>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link rel="stylesheet" href="font-awesome/Font/all.min.css">
+    <link rel="stylesheet" href="font-awesome/Font/fontawesome.min.css">
+
+    <style>
+    	.container-fluid
+    	{
+           background:linear-gradient(45deg ,#010758 , #490d61);
+    	}
+    	.box
+    	{
+    		display: flex;
+    		justify-content: center;
+    		align-items: center;
+    		min-height: 100vh;
+    		width: 100%;
+    	}
+
+    	.content
+    	{
+    		padding: 30px 40px;
+    	}
+
+    	.content h1
+    	{
+    		text-align: center;
+    		color: #fff;
+    		margin-top: -30px;
+    		margin-bottom: 40px;
+    	}
+
+    	.content .text
+    	{
+    		border:0;
+    		outline: 0;
+    		box-shadow: none;
+    		height: 200px;
+    		background-color: #403d84;
+    		padding: 20px;
+    		color: #fff;
+    		resize: none;
+    		margin-bottom: 30px;
+    	}
+
+    	.content .form-control::placeholder
+    	{
+    		color: #fff;
+    	}
+
+    	.content .item select
+    	{
+           border:0;
+           outline: 0;
+           background-color: #403d84;
+           color: #fff;
+           border-radius: 20px;
+           box-shadow: none;
+           padding: 0px 25px;
+           width: 100%;
+           height: 50px;
+           display: block;
+    	}
+
+    	.content .item .btn
+    	{
+           border:0;
+           outline: 0;
+           background-color: #ff2963;
+           color: #fff;
+           border-radius: 20px;
+           box-shadow: none;
+           padding: 0px 25px;
+           width: 100%;
+           font-size: 20px;
+           height: 50px;
+    	}
+
+    	.content .item .btn i
+    	{
+          margin-right: 10px;
+    	}
+    </style>
+</head>
+<body>
+</body>
+<div class="container-fluid">
+	  <div class="row main-row">
+	  	    <div class="col-sm-12  mx-auto">
+	  	    	  <div class="box">
+	  	    	  	    <div class="content">
+	  	    	  	    	    <h1>Text To Speech Convertor</h1>
+	  	    	  	  <form>
+	  	    	  	  	  <div class="form-group">
+	  	    	  	  	  	  <textarea class="form-control text" placeholder="Write anything here...."></textarea>
+	  	    	  	  	  </div>
+
+	  	    	  	  	  <div class="row item">
+	  	    	  	  	  	  <div class="col-sm-8">
+	  	    	  	  	  	  	   <div class="">
+	  	    	  	  	  	  	         <select class="form-select"></select>
+	  	    	  	  	  	       </div>
+	  	    	  	  	  	  </div>
+
+	  	    	  	  	  	  <div class="col-sm-4 text-center">
+	  	    	  	  	  	  	   <div class="">
+	  	    	  	  	  	  	        <button class="btn" type="button"><i class="fas fa-play"></i>Listen</button>
+	  	    	  	  	  	       </div>
+	  	    	  	  	  	  </div>
+	  	    	  	  	  </div>
+
+	  	    	  	  </form>
+	  	    	  	    </div>
+	  	    	  </div>
+	  	    </div>
+	  </div>
+</div>
+
+
+<script src="js/main.js"></script>
+<script>
+	    let speech = new SpeechSynthesisUtterance();
+
+        let voice = [];
+        let voiceSelect = document.querySelector("select");
+
+        window.speechSynthesis.onvoiceschanged = () =>{
+	    voices = window.speechSynthesis.getVoices();
+	    speech.voice=voices[0]
+
+	    voices.forEach((voice,i)=>(voiceSelect.options[i]=new Option(voice.name,i)));
+        }
+
+        voiceSelect.addEventListener("change",()=>{
+	    speech.voice=voices[voiceSelect.value];
+        });
+
+
+
+       document.querySelector("button").addEventListener("click",()=>{
+	   speech.text=document.querySelector("textarea").value;
+	   window.speechSynthesis.speak(speech);
+     });
+</script>
+</html>
